@@ -1,0 +1,3 @@
+com\soft1851\coursecenter\domain\dto\CourseDto.class
+com\soft1851\coursecenter\domain\dto\UserDto.class
+com\soft1851\coursecenter\domain\dto\UserDto$UserDtoBuilder.class

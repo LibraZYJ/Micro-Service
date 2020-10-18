@@ -1,0 +1,42 @@
+server:
+  port: 8088  #当前Eureka Client服务的端口
+info:
+  app:
+    name: mosoteach-work  #当前服务在actuator监控中的应用名称
+
+spring:
+
+  application:
+    name: mosoteach-work  #当前服务注册在Eureka Server上的名称
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.98.143.134/d_user_tczy?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#    url: jdbc:mysql://rm-m5ee476bu350735gjeo.mysql.rds.aliyuncs.com:3306/d_class_tczy?useUnide=true&characterEncoding=UTF-8&useSSL=false&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2b8
+    username: root
+    password: abc.123
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 20
+      maximum-pool-active: 8
+      auto-commit: true
+      idle-timeout: 10000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  jpa:
+    database: mysql
+    show-sql: false
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+#服务注册
+eureka:
+  instance:
+    hostname: zyj.com  #主机名
+    prefer-ip-address: true  #是否将当前服务的IP注册到 Eureka Server
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:7001/eureka/
+

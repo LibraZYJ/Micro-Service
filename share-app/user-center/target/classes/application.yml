@@ -1,0 +1,52 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-center
+  zipkin:
+    base-url: http://localhost:9411
+    discovery-client-enabled: false
+  sleuth:
+    sampler:
+      #抽样率，默认是0.1(10%)
+      probability: 1.0
+  datasource:
+    url: jdbc:mysql://39.97.254.106:3306/user_center?serverTimezone=Asia/Shanghai&characterEncoding=utf-8
+    hikari:
+      username: root
+      password: abc.123
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      minimum-idle: 10
+      maximum-pool-size: 100
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 30000
+  cloud:
+    nacos:
+      discovery:
+        # 指定nacos server的地址
+        server-addr: 47.97.103.220:8848
+#        namespace: 4beccfe1-5fa1-47df-844e-a57653467098
+        metadata:
+          instance: cc
+          hello: world
+          version: 1.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+#异步处理的消息队列
+rocketmq:
+  name-server: 39.97.254.106:9876
+#  name-server: 123.56.164.214:9876
+
+jwt:
+  secret: aaaaabbbbbcccccddddd
+  #有效期，单位秒，默认两周
+  expire-time-in-second: 1209600

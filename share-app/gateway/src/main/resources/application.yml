@@ -1,0 +1,59 @@
+server:
+  port: 8040
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.97.103.220:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      #反向代理
+      routes:
+#        - id: before_route
+##          uri: lb://user-center
+#          uri: http://localhost:8081/users/{id}
+#          predicates:
+#            - Path=/users/{id}
+#            #在指定时间区间内的请求会匹配该路由。
+#            - Before=2020-11-24T16:30:00+08:00[Asia/Shanghai]
+##            - Between=2020-09-24T16:30:00+08:00[Asia/Shanghai],2020-11-24T16:30:00+08:00[Asia/Shanghai]
+#            - Header=X-Request-Id, \d+
+#            - Method=GET
+#            - TimeBetween=上午9:00,上午11:00
+        - id: path_route1
+          uri: lb://user-center
+          predicates:
+            - Path=/users/**
+        - id: path_route2
+          uri: lb://content-center
+          predicates:
+            - Path=/shares/**
+        - id: path_route3
+          uri: lb://content-center
+          predicates:
+            - Path=/notices/**
+        - id: path_route4
+          uri: lb://content-center
+          predicates:
+            - Path=/admin/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+
+#异步处理的消息队列
+rocketmq:
+  name-server: 39.97.254.106:9876

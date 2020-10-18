@@ -1,0 +1,31 @@
+package com.soft1851.cloud.study;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * @author Yujie_Zhao
+ * @ClassName ConsumerHelloApplication
+ * @Description TODO
+ * @Date 2020/9/13  13:44
+ * @Version 1.0
+ **/
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ConsumerHelloApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(ConsumerHelloApplication.class,args);
+    }
+
+    /**
+     * 创建RestTemplate 实例通过@bean注解注入到Ioc容器中
+     * @reture RestTemplate
+     */
+    @Bean
+    public RestTemplate restTemplate(){
+        return  new RestTemplate();
+    }
+}
